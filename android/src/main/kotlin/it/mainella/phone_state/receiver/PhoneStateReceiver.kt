@@ -8,12 +8,14 @@ import it.mainella.phone_state.utils.PhoneStateStatus
 
 open class PhoneStateReceiver : BroadcastReceiver() {
     var status: PhoneStateStatus = PhoneStateStatus.NOTHING;
+    var number: String? = null
     override fun onReceive(context: Context?, intent: Intent?) {
         try {
             status = when (intent?.getStringExtra(TelephonyManager.EXTRA_STATE)) {
                 TelephonyManager.EXTRA_STATE_RINGING -> PhoneStateStatus.CALL_INCOMING
                 TelephonyManager.EXTRA_STATE_OFFHOOK -> PhoneStateStatus.CALL_STARTED
                 TelephonyManager.EXTRA_STATE_IDLE -> PhoneStateStatus.CALL_ENDED
+                number = intent.extras?.getString(TelephonyManager.EXTRA_INCOMING_NUMBER)
                 else -> PhoneStateStatus.NOTHING
             }
         } catch (e: Exception) {
