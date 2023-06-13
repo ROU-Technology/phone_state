@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -34,6 +35,8 @@ class _ExampleState extends State<Example> {
       case PermissionStatus.granted:
         return true;
     }
+
+    return false;
   }
 
   @override
@@ -46,7 +49,8 @@ class _ExampleState extends State<Example> {
     PhoneState.phoneStateStream.listen((event) {
       setState(() {
         if (event != null) {
-          status = event;
+          // status = event;
+          log(event.toString());
         }
       });
     });
