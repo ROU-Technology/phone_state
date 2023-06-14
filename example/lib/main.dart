@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:phone_state/phone_state.dart';
@@ -48,13 +49,15 @@ class _ExampleState extends State<Example> {
 
   void setStream() {
     PhoneState.phoneStateStream.listen((event) {
-      // print(event);
+      print(event);
       setState(() {
         if (event != null) {
-          status = event['status'];
+          status =
+              EnumToString.fromString(PhoneStateStatus.values, event['status'])
+                  as PhoneStateStatus;
         }
         if (event['number'] != null) {
-          number = event['number'];
+          number = event['number'].toString();
         }
       });
     });
