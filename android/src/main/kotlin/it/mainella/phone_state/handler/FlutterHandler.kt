@@ -27,7 +27,8 @@ class FlutterHandler(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
                 receiver = object : PhoneStateReceiver() {
                     override fun onReceive(context: Context?, intent: Intent?) {
                         super.onReceive(context, intent)
-                        events?.success(receiver.status.toString(), receiver.number, receiver.state)
+                        val myMap = mapOf("status" to receiver.status.toString(), "number" to receiver.number, "state" to receiver.state)
+                        events?.success(myMap)
                     }
                 }
 

@@ -10,8 +10,9 @@ class PhoneState {
 
   /// This method allows you to have a stream of the system phone state change
   static Stream<dynamic> get phoneStateStream {
-    return _eventChannel.receiveBroadcastStream().distinct().map(
-        (dynamic event) =>
-            EnumToString.fromString<dynamic>(PhoneStateStatus.values, event));
+    return _eventChannel
+        .receiveBroadcastStream()
+        .distinct()
+        .map((dynamic event) => event);
   }
 }

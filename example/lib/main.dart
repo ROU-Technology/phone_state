@@ -22,6 +22,7 @@ class Example extends StatefulWidget {
 class _ExampleState extends State<Example> {
   PhoneStateStatus status = PhoneStateStatus.NOTHING;
   bool granted = false;
+  String number = "";
 
   Future<bool> requestPermission() async {
     var status = await Permission.phone.request();
@@ -47,10 +48,13 @@ class _ExampleState extends State<Example> {
 
   void setStream() {
     PhoneState.phoneStateStream.listen((event) {
+      // print(event);
       setState(() {
         if (event != null) {
-          // status = event;
-          log(event.toString());
+          status = event['status'];
+        }
+        if (event['number'] != null) {
+          number = event['number'];
         }
       });
     });
@@ -91,7 +95,14 @@ class _ExampleState extends State<Example> {
               getIcons(),
               color: getColor(),
               size: 80,
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Number: $number",
+              style: TextStyle(fontSize: 30),
+            ),
           ],
         ),
       ),
